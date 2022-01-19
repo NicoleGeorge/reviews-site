@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { createContext, useState } from 'react';
 
 const FeedbackContext = createContext();
@@ -6,10 +7,25 @@ export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState([
     {
       id: 1,
-      text: 'This item is from context',
+      text: 'This item is feedback item 1',
       rating: 10
+    },
+    {
+      id: 2,
+      text: 'This item is feedback item 2',
+      rating: 5
+    },
+    {
+      id: 3,
+      text: 'This item is feedback item 3',
+      rating: 7
     }
   ]);
+
+  const addFeedback = (newFeedback) => {
+    newFeedback.id = uuidv4();
+    setFeedback([newFeedback, ...feedback]);
+  };
 
   const deleteFeedback = (id) => {
     if (window.confirm('Are you sure you want to delete this?')) {
@@ -21,7 +37,8 @@ export const FeedbackProvider = ({ children }) => {
     <FeedbackContext.Provider
       value={{
         feedback,
-        deleteFeedback
+        deleteFeedback,
+        addFeedback
       }}
     >
       {children}

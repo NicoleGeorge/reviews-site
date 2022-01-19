@@ -1,25 +1,15 @@
-import { v4 as uuidv4 } from 'uuid';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { useState } from 'react';
 import React from 'react';
 import Header from './components/Header';
 import FeedbackList from './components/FeedbackList';
 import FeedbackStats from './components/FeedbackStats';
 import FeedbackForm from './components/FeedbackForm';
-import FeedbackData from './data/FeedbackData';
 
 import AboutPage from './pages/About';
 import { FeedbackProvider } from './context/FeedbackContext';
 import AboutIcon from './components/AboutIconLink';
 
 const App = () => {
-  const [feedback, setFeedback] = useState(FeedbackData);
-
-  const addFeedback = (newFeedback) => {
-    newFeedback.id = uuidv4();
-    setFeedback([newFeedback, ...feedback]);
-  };
-
   return (
     <FeedbackProvider>
       <BrowserRouter>
@@ -31,7 +21,7 @@ const App = () => {
               path='/'
               element={
                 <>
-                  <FeedbackForm handleAdd={addFeedback} />
+                  <FeedbackForm />
                   <FeedbackStats />
                   <FeedbackList />
                 </>
